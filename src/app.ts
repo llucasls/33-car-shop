@@ -1,5 +1,7 @@
-import express, { Router } from 'express';
+import express, { Router, RequestHandler, ErrorRequestHandler } from 'express';
 import connectToDatabase from './connection';
+
+type Handler = RequestHandler | ErrorRequestHandler;
 
 class App {
   public app: express.Application;
@@ -23,6 +25,10 @@ class App {
 
   public getApp() {
     return this.app;
+  }
+
+  public handleError(middleware: Handler) {
+    this.app.use(middleware);
   }
 }
 
