@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import MongoService, { ServiceError } from '../services/MongoService';
 
 export type ResponseError = {
@@ -40,10 +40,10 @@ abstract class Controller<T> {
     }
   };
 
-  abstract readOne(
-    req: Request<{ id: string; }>,
-    res: Response<T | ResponseError>
-  ): Promise<typeof res>;
+  readOne = async (req: Request, res: Response, next: NextFunction) => this
+    .service.readOne(req.params.id)
+    .then((obj) => res.status(200).json(obj))
+    .catch(next);
 
   abstract update(req: RequestWithBody<T>, res: Response): Promise<typeof res>;
 
