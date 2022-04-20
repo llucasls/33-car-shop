@@ -35,21 +35,6 @@ class CarController extends Controller<Car> {
     }
   };
 
-  readOne = async (
-    req: Request<{ id: string; }>,
-    res: Response<Car | ResponseError>,
-  ): Promise<typeof res> => {
-    const { id } = req.params;
-    try {
-      const car = await this.service.readOne(id);
-      return car
-        ? res.json(car)
-        : res.status(404).json({ error: this.errors.notFound });
-    } catch (error) {
-      return res.status(500).json({ error: this.errors.internal });
-    }
-  };
-
   update = async (req: RequestWithBody<Car>, res: Response) => {
     try {
       const { body } = req;
