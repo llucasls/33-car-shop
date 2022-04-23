@@ -12,6 +12,9 @@ export type Service<T> = T | ServiceError | null;
 enum ServiceErrors {
   invalidIdFormat = 'Id must have 24 hexadecimal characters',
   notFound = 'Object not found',
+  internal = 'Internal Server Error',
+  requiredId = 'Id is required',
+  badRequest = 'Bad request',
 }
 
 const idFormat = /^[0-9a-f]{24}$/;
@@ -41,7 +44,12 @@ abstract class MongoService<T> {
   }
 
   public async update(id: string, obj: T): Promise<Service<T>> {
-    return this.model.update(id, obj);
+    if (!idFormat.test(id)) {
+      throw new HttpError(400, this.errors.invalidIdFormat);
+    }
+    const result = await this.model.update(id, obj);
+    if (!result) throw new HttpError(404, this.errors.notFound);
+    return result;
   }
 
   public async delete(id: string): Promise<Service<T>> {
