@@ -40,10 +40,10 @@ abstract class Controller<T> {
     }
   };
 
-  readOne = async (req: Request, res: Response, next: NextFunction) => this
-    .service.readOne(req.params.id)
-    .then((obj) => res.status(200).json(obj))
-    .catch(next);
+  readOne = async (req: Request, res: Response, next: NextFunction) =>
+    this.service.readOne(req.params.id)
+      .then((obj) => res.status(200).json(obj))
+      .catch(next);
 
   update = async (req: RequestWithBody<T>, res: Response, next: NextFunction) =>
     this.service.update(req.params.id, req.body)
