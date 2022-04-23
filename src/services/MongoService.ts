@@ -17,10 +17,10 @@ enum ServiceErrors {
   badRequest = 'Bad request',
 }
 
-const idFormat = /^[0-9a-f]{24}$/;
-
 abstract class MongoService<T> {
   protected errors = ServiceErrors;
+
+  protected idFormat = /^[0-9a-f]{24}$/;
 
   constructor(protected model: Model<T>) { }
 
@@ -33,7 +33,7 @@ abstract class MongoService<T> {
   }
 
   public async readOne(id: string): Promise<Service<T>> {
-    if (!idFormat.test(id)) {
+    if (!this.idFormat.test(id)) {
       throw new HttpError(400, this.errors.invalidIdFormat);
     }
     const obj = await this.model.readOne(id);
@@ -44,7 +44,7 @@ abstract class MongoService<T> {
   }
 
   public async update(id: string, obj: T): Promise<Service<T>> {
-    if (!idFormat.test(id)) {
+    if (!this.idFormat.test(id)) {
       throw new HttpError(400, this.errors.invalidIdFormat);
     }
     const result = await this.model.update(id, obj);
