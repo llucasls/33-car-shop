@@ -35,17 +35,6 @@ class CarController extends Controller<Car> {
     }
   };
 
-  update = async (req: RequestWithBody<Car>, res: Response) => {
-    try {
-      const { body } = req;
-      const { id } = req.params;
-      const car = await this.service.update(id, body);
-      return res.status(200).json(car);
-    } catch (error) {
-      return res.status(500).json({ error: this.errors.internal });
-    }
-  };
-
   delete = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
