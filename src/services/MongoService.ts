@@ -52,8 +52,17 @@ abstract class MongoService<T> {
     return result;
   }
 
+  // public async delete(id: string): Promise<Service<T>> {
+  //   return this.model.delete(id);
+  // }
+
   public async delete(id: string): Promise<Service<T>> {
-    return this.model.delete(id);
+    if (!this.idFormat.test(id)) {
+      throw new HttpError(400, this.errors.invalidIdFormat);
+    }
+    const result = await this.model.delete(id);
+    if (!result) throw new HttpError(404, this.errors.notFound);
+    return result;
   }
 }
 
