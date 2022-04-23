@@ -14,6 +14,8 @@ enum ServiceErrors {
   notFound = 'Object not found',
 }
 
+const idFormat = /^[0-9a-f]{24}$/;
+
 abstract class MongoService<T> {
   protected errors = ServiceErrors;
 
@@ -28,7 +30,6 @@ abstract class MongoService<T> {
   }
 
   public async readOne(id: string): Promise<Service<T>> {
-    const idFormat = /^[0-9a-f]{24}$/;
     if (!idFormat.test(id)) {
       throw new HttpError(400, this.errors.invalidIdFormat);
     }
