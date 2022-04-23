@@ -50,7 +50,10 @@ abstract class Controller<T> {
       .then((obj) => res.status(200).json(obj))
       .catch(next);
 
-  abstract delete(req: Request, res: Response): Promise<typeof res>;
+  delete = async (req: Request, res: Response, next: NextFunction) =>
+    this.service.delete(req.params.id)
+      .then((obj) => res.status(204).json(obj))
+      .catch(next);
 }
 
 export default Controller;
