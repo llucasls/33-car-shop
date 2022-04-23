@@ -34,16 +34,6 @@ class CarController extends Controller<Car> {
       return res.status(500).json({ error: this.errors.internal });
     }
   };
-
-  delete = async (req: Request, res: Response) => {
-    try {
-      const { id } = req.params;
-      const car = await this.service.delete(id);
-      return res.status(200).json(car);
-    } catch (error) {
-      return res.status(500).json({ error: this.errors.internal });
-    }
-  };
 }
 
 export default CarController;
