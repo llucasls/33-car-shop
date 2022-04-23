@@ -52,7 +52,7 @@ abstract class Controller<T> {
 
   delete = async (req: Request, res: Response, next: NextFunction) =>
     this.service.delete(req.params.id)
-      .then((obj) => res.status(204).json(obj))
+      .then(() => res.status(204).end())
       .catch(next);
 }
 
