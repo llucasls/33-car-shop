@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import Controller, { RequestWithBody, ResponseError } from './MongoController';
 import CarService from '../services/car';
 import { Car } from '../interfaces/CarInterface';
