@@ -45,7 +45,10 @@ abstract class Controller<T> {
     .then((obj) => res.status(200).json(obj))
     .catch(next);
 
-  abstract update(req: RequestWithBody<T>, res: Response): Promise<typeof res>;
+  update = async (req: RequestWithBody<T>, res: Response, next: NextFunction) =>
+    this.service.update(req.params.id, req.body)
+      .then((obj) => res.status(200).json(obj))
+      .catch(next);
 
   abstract delete(req: Request, res: Response): Promise<typeof res>;
 }
