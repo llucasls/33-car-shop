@@ -52,10 +52,6 @@ abstract class MongoService<T> {
     return result;
   }
 
-  // public async delete(id: string): Promise<Service<T>> {
-  //   return this.model.delete(id);
-  // }
-
   public async delete(id: string): Promise<Service<T>> {
     if (!this.idFormat.test(id)) {
       throw new HttpError(400, this.errors.invalidIdFormat);
