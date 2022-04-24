@@ -36,11 +36,11 @@ abstract class MongoService<T> {
     if (!this.idFormat.test(id)) {
       throw new HttpError(400, this.errors.invalidIdFormat);
     }
-    const obj = await this.model.readOne(id);
-    if (!obj) {
+    const result = await this.model.readOne(id);
+    if (!result) {
       throw new HttpError(404, this.errors.notFound);
     }
-    return obj;
+    return result;
   }
 
   public async update(id: string, obj: T): Promise<Service<T>> {
