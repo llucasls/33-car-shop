@@ -1,3 +1,9 @@
-export const create = async (obj: any): Promise<any> => {
-  return this.model.create(obj);
+export const create = {
+  model: 'Mustang',
+  year: 1982,
+  color: 'black',
+  status: true,
+  buyValue: 30000,
+  doorsQty: 2,
+  seatsQty: 2,
 }
