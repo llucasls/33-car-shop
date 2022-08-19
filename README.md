@@ -3,7 +3,7 @@
 ## Description
 
 This project was written in TypeScript using Node.js. It provides an API to
-connect with MongoDB.
+connect with MongoDB and uses Mongoose as an Object Document Mapping tool.
 
 ## Technologies
 
